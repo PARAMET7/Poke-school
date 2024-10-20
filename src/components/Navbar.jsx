@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <nav className="bg-blue-600 text-white shadow-md fixed top-0 left-0 w-full z-50">
+    <nav className="bg-white text-white shadow-md fixed top-0 left-0 w-full z-50">
       <div className="flex justify-between h-20 items-center px-4">
         <div className="flex items-center space-x-2 w-1/4">
 
@@ -14,9 +14,9 @@ function Navbar() {
         </div>
 
 
-        <div className="flex justify-center w-1/2">
-        <span className="text-xl">
-            Cohort Tools
+        <div className=" flex justify-center w-1/5">
+        <span className="bg-black text-xl">
+            Ash
           </span>
         </div>
 
@@ -24,7 +24,7 @@ function Navbar() {
           {/* User Profile Button */}
           <Link to="/profile" className="flex items-center text-l py-1">
             <img
-              src="https://education-team-2020.s3.eu-west-1.amazonaws.com/web-dev/labs/lab-cohort-tools-routing/profile-1.png"
+              src="https://freepngimg.com/thumb/pokemon/20090-7-pokemon-ash-hd.png"
               alt="User Profile"
               className="h-10 w-auto border-solid border border-white rounded-3xl p-1"
             />

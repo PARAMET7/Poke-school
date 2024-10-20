@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 function UserProfilePage() {
   const userProfile = {
-    image: "https://education-team-2020.s3.eu-west-1.amazonaws.com/web-dev/labs/lab-cohort-tools-routing/profile-1.png",
-    name: "Jane Doe",
-    email: "janed@example.com",
-    role: "Lead Teacher",
+    image: "https://freepngimg.com/thumb/pokemon/20090-7-pokemon-ash-hd.png",
+    name: "Ash",
+    email: "Ash@example.com",
+    role: "Trainer",
   };
 
   return (
@@ -33,8 +33,11 @@ function UserProfilePage() {
             </div>
           </>
         )}
+        <button className="text-white px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition duration-300 ease-in-out">
+            complit
+          </button>
 
-        {/* Back button */}
+
         <Link to="/">
           <button className="text-white px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition duration-300 ease-in-out">
             Back

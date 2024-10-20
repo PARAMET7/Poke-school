@@ -1,13 +1,38 @@
+import React, { useState } from 'react';
 import placeholderImage from "./../assets/placeholder.png";
 import studentsData from "./../assets/students.json";
+import tasksData from './../assets/tasks.json'; // Import your tasks JSON
 import { Link, useParams } from 'react-router-dom';
+import AddTaskForm from '../components/AddTaskForm'; // Import the AddTaskForm component
 
 function StudentDetailsPage() {
-  // Get the student ID from the URL
   const { studentId } = useParams();
 
-  // Find the current student profile by id.
   const studentProfile = studentsData.find((student) => student._id === studentId);
+
+  // Initialize tasks with imported JSON data
+  const [tasks, setTasks] = useState(tasksData.map((task, index) => ({
+    id: index + 1, // Assign unique IDs
+    title: task.task,
+    isCompleted: task.completed,
+  })));
+
+  // Add a new task
+  const addTask = (newTask) => {
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { ...newTask, id: prevTasks.length + 1 }
+    ]);
+  };
+
+  // Toggle task completion
+  const toggleTask = (index) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task, i) =>
+        i === index ? { ...task, isCompleted: !task.isCompleted } : task
+      )
+    );
+  };
 
   return (
     <div className="StudentDetailsPage bg-gray-100 py-6 px-4 border-2 border-fuchsia-500 m-2">
@@ -27,36 +52,24 @@ function StudentDetailsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-24 mb-4 border-b pb-4">
               <p className="text-left mb-2 border-b pb-2">
                 <strong>LinkedIn:</strong>{" "}
-                <a
-                  href={studentProfile.linkedinUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="ml-2 text-blue-500 hover:underline"
-                >
-                  {studentProfile.linkedinUrl}
-                </a>
+              
               </p>
-
               <p className="text-left mb-2 border-b pb-2">
                 <strong>Email:</strong>{" "}
                 <span className="ml-2 text-blue-500 hover:underline">
                   {studentProfile.email}
                 </span>
               </p>
-
               <p className="text-left mb-2 border-b pb-2">
                 <strong>Languages:</strong>{" "}
                 {studentProfile.languages.join(", ")}
               </p>
-
               <p className="text-left mb-2 border-b pb-2">
                 <strong>Program:</strong> {studentProfile.program}
               </p>
-
               <p className="text-left mb-2 pb-2">
                 <strong>Background:</strong> {studentProfile.background}
               </p>
-
               <p className="text-left mb-2 pb-2">
                 <strong>Cohort:</strong>
                 <span className="ml-2 text-blue-500 hover:underline">
@@ -65,7 +78,25 @@ function StudentDetailsPage() {
               </p>
             </div>
 
-            {/* Back button */}
+            <h2 className="mt-4">Tasks</h2>
+            <AddTaskForm addTask={addTask} />
+            <div className="task-list">
+              <ul>
+                {tasks.map((task, index) => (
+                  <li key={task.id} className="task-item flex items-center mb-2">
+                    <button
+                      onClick={() => toggleTask(index)}
+                      className={`px-4 py-2 rounded ${
+                        task.isCompleted ? 'bg-green-500' : 'bg-red-500'
+                      } text-white`}
+                    >
+                      {task.title} {task.isCompleted ? '✅' : '❌'}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             <Link to='/'>
               <button className="text-white px-4 py-2 rounded bg-green-500 hover:bg-green-600 transition duration-300 ease-in-out">
                 Back
@@ -73,7 +104,7 @@ function StudentDetailsPage() {
             </Link>
           </>
         ) : (
-          <p>Student not found</p> // Handle the case where the student is not found
+          <p>Student not found</p>
         )}
       </div>
     </div>
